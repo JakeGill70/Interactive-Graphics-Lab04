@@ -64,6 +64,20 @@
     pencil.addChild(squareB, { x: -50, y: 0 });
     pencil.addChild(squareC, { x: 50, y: 0 });
 
+    pencil.fillColor = "rgb(255,255,0)";
+    pencil.isFilled = true;
+
+    squareA.fillColor = "rgb(255,0,0)";
+    squareA.isFilled = true;
+    squareB.fillColor = "rgb(0,255,0)";
+    squareB.isFilled = true;
+    squareC.fillColor = "rgb(0,0,255)";
+    squareC.isFilled = true;
+
+    arrow.fillColor = "rgb(255,0,0)";
+    arrow.lineColor = "rgb(255,0,0)";
+    arrow.isFilled = true;
+
     world.dc.setYBasis({ x: 0, y: -1 });
     world.dc.translate(canvas.width / 2, canvas.height / 2);
     world.objects.set("arrow", arrow);
