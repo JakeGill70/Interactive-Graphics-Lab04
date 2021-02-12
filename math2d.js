@@ -21,6 +21,10 @@ class Matrix2D {
             _m[3] = v.y;
         };
 
+        this.getXBasis = function _getXBasis() {
+            return { x: _m[0], y: _m[3] };
+        }
+
         this.setYBasis = function _setYBasis(v) {
             _m[1] = v.x;
             _m[4] = v.y;

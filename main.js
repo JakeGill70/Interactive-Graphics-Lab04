@@ -25,7 +25,8 @@
         0, 1, 1, 2, 2, 3, 3, 4, 4, 0, 1, 4
     ];
     pencil.orientation.translate(200, 0);
-    pencil.animation = new ForwardThenTurnAroundAnimation(pencil, 200, 25, 180);
+    //pencil.animation = new ForwardThenTurnAroundAnimation(pencil, 200, 25, 180);
+    pencil.animation = new ForwardStrafingTurnAround(pencil, 100, 25, 30);
 
     let axis = new Object2D();
     axis.vertices = [
