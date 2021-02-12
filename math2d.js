@@ -16,6 +16,11 @@ class Matrix2D {
             return { x: _m[2], y: _m[5] };
         };
 
+        this.setPosition = function _setPosition(x, y) {
+            _m[2] = x;
+            _m[5] = y;
+        }
+
         this.setXBasis = function _setXBasis(v) {
             _m[0] = v.x;
             _m[3] = v.y;
@@ -131,6 +136,20 @@ class Matrix2D {
             return resultMatrix;
         }
 
+        // Returns: []
+        this.getInverse = function _getInverse() {
+            let detInv = 1 / _getDeterminant();
+            let adj = _getAdjugate();
+            let inv = [];
+            for (let idx = 0; idx < 6; idx++) {
+                inv[idx] = detInv * adj[idx];
+            } return inv;
+        };
+
+        this.invert = function _invert() {
+            _m = this.getInverse();
+        };
+
         function _multiply(m, n) {
             let r = [];
             r[0] = m[0] * n[0] + m[1] * n[3];
@@ -161,6 +180,44 @@ class Matrix2D {
             _m[3] = n[3] * m[0] + n[4] * m[3];
             _m[4] = n[3] * m[1] + n[4] * m[4];
             _m[5] = n[3] * m[2] + n[4] * m[5] + n[5];
+        };
+
+        function _getDeterminant() {
+            // a b c    
+            let a = _m[0];
+            let b = _m[1];
+            // c = m[2];    
+            // d e f    
+            let d = _m[3];
+            let e = _m[4];
+            // f = m[5];    
+            // g h i    
+            // g = 0; h = 0; i = 1;   
+            // a(ei − fh) − b(di − fg) + c(dh − eg)    
+            return a * e - b * d;
+        };
+
+        function _getTransposed() {
+            return [
+                _m[0], _m[3], 0,
+                _m[1], _m[4], 0,
+                _m[2], _m[5], 1
+            ];
+        };
+
+        function _getAdjugate() {
+            let t = _getTransposed();
+            let a = [];
+            a[0] = t[4] * t[8] - t[7] * t[5];
+            a[1] = -(t[3] * t[8] - t[6] * t[5]);
+            a[2] = t[3] * t[7] - t[6] * t[4];
+            a[3] = -(t[1] * t[8] - t[7] * t[2]);
+            a[4] = t[0] * t[8] - t[6] * t[2];
+            a[5] = -(t[0] * t[7] - t[6] * t[1]);
+            a[6] = t[1] * t[5] - t[4] * t[2];
+            a[7] = -(t[0] * t[5] - t[3] * t[2]);
+            a[8] = t[0] * t[4] - t[3] * t[1];
+            return a;
         };
     }
 }
