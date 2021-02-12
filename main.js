@@ -42,13 +42,27 @@
         7, 9, 8, 10
     ];
 
-    // Implementation by Dr. Jeff Roach as notes inside of 
-    // "CSCI4157-Animation-HierarchicalModeling" on D2L.
-    // https://elearn.etsu.edu/d2l/le/content/8468953/viewContent/72103140/View
-    let square = new Object2D();
-    square.vertices = [{ x: -10, y: 10 }, { x: -10, y: -10 }, { x: 10, y: -10 }, { x: 10, y: 10 }];
-    square.edges = [0, 1, 1, 2, 2, 3, 3, 0];
-    pencil.addChild(square, { x: 0, y: 100 });
+    function makeSquare() {
+        // Implementation by Dr. Jeff Roach as notes inside of 
+        // "CSCI4157-Animation-HierarchicalModeling" on D2L.
+        // https://elearn.etsu.edu/d2l/le/content/8468953/viewContent/72103140/View
+        let square = new Object2D();
+        square.vertices = [{ x: -10, y: 10 }, { x: -10, y: -10 }, { x: 10, y: -10 }, { x: 10, y: 10 }];
+        square.edges = [0, 1, 1, 2, 2, 3, 3, 0];
+        return square;
+    }
+
+    let squareA = makeSquare();
+    let squareB = makeSquare();
+    let squareC = makeSquare();
+
+    squareA.animation = new RotateAboutCenterAnimation(squareA, 180);
+    squareB.animation = new RotateAboutCenterAnimation(squareB, 90);
+    squareC.animation = new RotateAboutCenterAnimation(squareC, 45);
+
+    pencil.addChild(squareA, { x: 0, y: 100 });
+    pencil.addChild(squareB, { x: -50, y: 0 });
+    pencil.addChild(squareC, { x: 50, y: 0 });
 
     world.dc.setYBasis({ x: 0, y: -1 });
     world.dc.translate(canvas.width / 2, canvas.height / 2);
