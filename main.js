@@ -13,9 +13,8 @@
         0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 0
     ];
     arrow.orientation.translate(100, 50);
-    arrow.orientation.rotateCCWAboutPosition(45, {x:100, y:50});
-    arrow.animation = new RotateAboutCenterAnimation(arrow, 45);
-    //arrow.animation = new RotateAnimation(arrow, 45);
+    arrow.orientation.rotateCCWAboutPosition(45, { x: 100, y: 50 });
+    arrow.animation = new ForwardThenTurnAroundAnimation(arrow, 50, 10, 45);
 
     let pencil = new Object2D();
     pencil.vertices = [
@@ -26,7 +25,7 @@
         0, 1, 1, 2, 2, 3, 3, 4, 4, 0, 1, 4
     ];
     pencil.orientation.translate(200, 0);
-    pencil.animation = new RotateAnimation(pencil, 90);
+    pencil.animation = new ForwardThenTurnAroundAnimation(pencil, 200, 25, 180);
 
     let axis = new Object2D();
     axis.vertices = [
