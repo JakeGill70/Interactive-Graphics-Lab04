@@ -78,11 +78,57 @@
     arrow.lineColor = "rgb(255,0,0)";
     arrow.isFilled = true;
 
+    function makeTank() {
+        let tankBase = new Object2D();
+        tankBase.vertices = [
+            { x: -30, y: 30 },
+            { x: -15, y: 30 },
+            { x: -15, y: 15 },
+            { x: 15, y: 15 },
+            { x: 15, y: 30 },
+            { x: 30, y: 30 },
+            { x: 30, y: -30 },
+            { x: 15, y: -30 },
+            { x: 15, y: -15 },
+            { x: -15, y: -15 },
+            { x: -15, y: -30 },
+            { x: -30, y: -30 }];
+        tankBase.edges = [0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 0];
+        tankBase.fillColor = "rgb(140,70,20)";
+        tankBase.isFilled = true;
+
+        let turret = new Object2D();
+        turret.vertices = [
+            { x: -15, y: 15 },
+            { x: -5, y: 15 },
+            { x: -5, y: 45 },
+            { x: 5, y: 45 },
+            { x: 5, y: 15 },
+            { x: 15, y: 15 },
+            { x: 15, y: -15 },
+            { x: -15, y: -15 }];
+        turret.edges = [0, 1, 1, 2, 2, 3, 3, 4,
+            4, 5, 5, 6, 6, 7, 7, 0];
+        turret.fillColor = "rgb(210, 105, 30)";
+        turret.isFilled = true;
+
+        tankBase.addChild(turret, { x: 0, y: 0 });
+
+        turret.animation = new RotateAboutCenterAnimation(turret, 45);
+        tankBase.animation = new ForwardThenTurnAroundAnimation(tankBase, 100, 25, 90);
+
+        return tankBase;
+    }
+
+    let tank = makeTank();
+    tank.orientation.translate(-100, 0);
+
     world.dc.setYBasis({ x: 0, y: -1 });
     world.dc.translate(canvas.width / 2, canvas.height / 2);
     world.objects.set("arrow", arrow);
     world.objects.set("pencil", pencil);
     world.objects.set("axis", axis);
+    world.objects.set("tank", tank);
     animationLoop.run();
 
 })();
