@@ -5,14 +5,17 @@ class Object2D {
         this.edges = [];
         this.orientation = new Matrix2D();
         this.animation = null;
+        this.children = [];
 
         // elapsedTimeMS: number, the number of milleseconds since the last call
         this.update = function _update(elapsedTimeMS) {
             if (this.animation) {
                 this.animation.update(elapsedTimeMS);
             }
+            for (let child of this.children) {
+                child.update(elapsedTimeMS);
+            }
         };
-
 
         this.render = function _render(context, parentOrientation) {
             context.beginPath();
@@ -27,6 +30,15 @@ class Object2D {
                 context.lineTo(ev.x, ev.y);
             }
             context.stroke();
+            let grandParentOrientation = parentOrientation.multiply(this.orientation);
+            for (let child of this.children) {
+                child.render(context, grandParentOrientation);
+            }
         };
+
+        this.addChild = function _addChild(child, position) {
+            child.orientation.translate(position.x, position.y);
+            this.children.push(child);
+        }
     }
 }

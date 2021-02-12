@@ -110,6 +110,27 @@ class Matrix2D {
             _leftMultiplyBy(r);
         }
 
+        // Returns: []
+        this.getMatrix = function _getMatrix() {
+            return _m.slice();
+        }
+
+        // arr: []
+        this.setMatrix = function _setMatrix(arr) {
+            _m = arr.slice();
+        }
+
+        // mat: Matrix2D
+        // Returns: Matrix2D
+        this.multiply = function _multiplyMatrices(mat) {
+            let m = _m;
+            let n = mat.getMatrix();
+            let r = _multiply(m, n);
+            let resultMatrix = new Matrix2D();
+            resultMatrix.setMatrix(r);
+            return resultMatrix;
+        }
+
         function _multiply(m, n) {
             let r = [];
             r[0] = m[0] * n[0] + m[1] * n[3];
